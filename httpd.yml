@@ -1,0 +1,16 @@
+- hosts: all
+  vars:
+    - port: "5555"
+  tasks:
+  - name: Copying conf file
+    template:
+      dest: "/etc/httpd/conf.d/myhttpd.conf"
+      src: "myhttpd.j2"
+    notify:
+    -  changed
+  handlers:
+    - name: changed
+      service:
+        name: "httpd"
+        state: restarted
+        enabled: yes
