@@ -1,0 +1,12 @@
+- hosts: all
+  vars:
+  - port: "4444"
+  tasks:
+  - name: Copying conf file
+    template:
+      dest: "/etc/httpd/conf.d/myhttpd.conf"
+      src: "myhttpd.j2"
+  - service:
+      name: "httpd"
+      state: restarted
+      enabled: yes
